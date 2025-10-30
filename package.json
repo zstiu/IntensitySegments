@@ -1,0 +1,38 @@
+{
+  "name": "intensitysegments",
+  "version": "1.0.0",
+  "description": "We are looking for a program that manages “intensity” by segments. Segments are intervals from -infinity to infinity, we’d like you to implement functions that updates intensity by an integer amount for a given range. All intensity starts with 0.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zstiu/IntensitySegments.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zstiu/IntensitySegments/issues"
+  },
+  "homepage": "https://github.com/zstiu/IntensitySegments#readme",
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.9.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "earl": "^2.0.0",
+    "mocha": "^11.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
