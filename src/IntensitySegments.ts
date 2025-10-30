@@ -24,20 +24,17 @@ export class IntensitySegments {
         toIndex: number,
         fromIsSameNumber: boolean,
         toIsSameNumber: boolean,
-        toLastLoopAmount: number|undefined,
     } {
         const result: {
             fromIndex: number,
             toIndex: number,
             fromIsSameNumber: boolean,
             toIsSameNumber: boolean,
-            toLastLoopAmount: number|undefined,
         } = {
             fromIndex: 0,
             toIndex: this.numberNodelist.length,
             fromIsSameNumber: false,
             toIsSameNumber: false,
-            toLastLoopAmount: undefined,
         }
 
         // 用于标明from的节点位置已经找到，下次loop可以跳过
@@ -64,7 +61,6 @@ export class IntensitySegments {
             if(to <= numberNode[0]) {
                 result.toIndex = index;
                 result.toIsSameNumber = to === numberNode[0];
-                result.toLastLoopAmount = numberNode[1];
 
                 break;
             }
@@ -106,6 +102,7 @@ export class IntensitySegments {
         ];
 
     }
+
     set(from: number, to: number, amount: number): void {
 
         if(!this.checkParams(from, to, amount)) {
@@ -116,8 +113,7 @@ export class IntensitySegments {
             fromIndex,
             toIndex,
             fromIsSameNumber,
-            toIsSameNumber,
-            toLastLoopAmount
+            toIsSameNumber
         } = this.findIndexInNode(from, to);
 
         // 找到起止节点位置之后，将位置之内的节点都设置成新强度
@@ -147,9 +143,14 @@ export class IntensitySegments {
             if(cur[1] === preArr[1]) {
                 return pre;
             }
+
+            // 这里处理边界最小节点强度为0的情况，直接舍弃掉
+            if(!pre && cur[1] === 0) {
+                return pre;
+            }
             preArr = cur;
-            return pre + `${curIndex === 0 ? '' : ','}[${cur.toString()}]`;
+            return pre + `${curIndex === 0 ? '' : ' '}[${cur.toString()}]`;
         }, '')
-        return `[${nodeListString}]`;
+        return `[${nodeListString.trim().replace(/\s/g, ',')}]`;
     }
 }

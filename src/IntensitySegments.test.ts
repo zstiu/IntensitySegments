@@ -33,6 +33,18 @@ describe('IntensitySegments.add()', () => {
     // from相等、to相等
     segments.add(25, 40, 10);
     expect(segments.toString()).toEqual("[[10,-1],[20,-4],[25,9],[28,13],[30,12],[35,5],[38,9],[40,0]]");
+
+    // from不相等、to不相等
+    segments.add(22, 24, 3);
+    expect(segments.toString()).toEqual("[[10,-1],[20,-4],[22,-1],[24,-4],[25,9],[28,13],[30,12],[35,5],[38,9],[40,0]]");
+
+    // from相等、to相等
+    segments.add(20, 25, 10);
+    expect(segments.toString()).toEqual("[[10,-1],[20,6],[22,9],[24,6],[25,9],[28,13],[30,12],[35,5],[38,9],[40,0]]");
+
+    // from相等、to相等
+    segments.add(10, 25, 3);
+    expect(segments.toString()).toEqual("[[10,2],[20,9],[22,12],[24,9],[28,13],[30,12],[35,5],[38,9],[40,0]]");
   });
 
 
@@ -194,18 +206,6 @@ describe('IntensitySegments.set()', () => {
     // from不相等、to不相等
     segments.set(-10, 50, 3);
     expect(segments.toString()).toEqual("[[-10,3],[50,0]]");
-
-    // // from不相等、to相等
-    // segments.set(15, 25, 4);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,4],[25,3],[28,0],[30,-1],[40,0]]");
-
-    // // from相等、to不相等
-    // segments.set(25, 35, -4);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,4],[25,-4],[35,-1],[40,0]]");
-
-    // // from相等、to相等
-    // segments.set(15, 35, 10);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,10],[35,-1],[40,0]]");
   });
 
   it('set() case 3.2: 修改区间from在左侧、to在右侧', () => {
@@ -220,14 +220,6 @@ describe('IntensitySegments.set()', () => {
     // from不相等、to相等
     segments.set(-10, 40, 4);
     expect(segments.toString()).toEqual("[[-10,4],[40,0]]");
-
-    // // from相等、to不相等
-    // segments.set(25, 35, -4);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,4],[25,-4],[35,-1],[40,0]]");
-
-    // // from相等、to相等
-    // segments.set(15, 35, 10);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,10],[35,-1],[40,0]]");
   });
 
   it('set() case 3.3: 修改区间from在左侧、to在右侧', () => {
@@ -242,10 +234,6 @@ describe('IntensitySegments.set()', () => {
     // from相等、to不相等
     segments.set(10, 50, -4);
     expect(segments.toString()).toEqual("[[10,-4],[50,0]]");
-
-    // // from相等、to相等
-    // segments.set(15, 35, 10);
-    // expect(segments.toString()).toEqual("[[10,-1],[15,10],[35,-1],[40,0]]");
   });
 
   it('set() case 3.4: 修改区间from在左侧、to在右侧', () => {
@@ -296,5 +284,16 @@ describe('IntensitySegments.set()', () => {
     // from相等、to不相等
     segments.set(60, 70, 4);
     expect(segments.toString()).toEqual("[[10,-1],[20,0],[30,-1],[40,0],[50,3],[60,4],[70,0]]");
+  });
+
+  it('set() case 6: 最小节点强度为0的边界用例', () => {
+    const segments = new IntensitySegments();
+    segments.set(10, 30, 1);
+    expect(segments.toString()).toEqual("[[10,1],[30,0]]");
+    segments.set(-10, 20, 10);
+    expect(segments.toString()).toEqual("[[-10,10],[20,1],[30,0]]");
+
+    segments.set(-30, -20, 0);
+    expect(segments.toString()).toEqual("[[-10,10],[20,1],[30,0]]");
   });
 })
